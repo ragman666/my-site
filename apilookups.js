@@ -117,13 +117,20 @@ function createnicebox(column,p1text,p2text,p3text) {
   newDiv.appendChild(p1);
   newDiv.appendChild(p2);
   newDiv.appendChild(p3);
-  newDiv.appendChild(document.createElement("br"));
-  newDiv.appendChild(document.createElement("br"));
-  newDiv.appendChild(document.createElement("br"));
+
 
   // add the newly created element and its content into the DOM
   const currentDiv = document.getElementById(`${column}`);
   currentDiv.parentNode.insertBefore(newDiv, currentDiv);
+
+  const newbreak = document.createElement("br")
+  currentDiv.parentNode.insertBefore(newbreak, currentDiv);
+  currentDiv.parentNode.insertBefore(newbreak, currentDiv);
+  currentDiv.parentNode.insertBefore(newbreak, currentDiv);
+
+  //newDiv.appendChild(document.createElement("br"));
+  //newDiv.appendChild(document.createElement("br"));
+  //newDiv.appendChild(document.createElement("br"));
 }
 
 
@@ -144,6 +151,7 @@ function init() {
 //    yorksnextgame()
 //    createnicebox("endof1","p1","p2","p3")
     addto1("135763")
+    addto1("133635")
 }
 
 document.addEventListener('DOMContentLoaded', init);
