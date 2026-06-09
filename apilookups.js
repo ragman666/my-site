@@ -1,15 +1,20 @@
 // ACCESSING ALL THE HTML COMPONENTS REQUIRED TO PERFORM ACTIONS ON.
 
-const sports_teams = [
+const the_sportsdb_teams = [
     { team: 'Leeds United', thesportsdbid: '133635' },
     { team: 'Leeds Rhinos', thesportsdbid: '135216' },
-    { team: 'Yorkshire CC', thesportsdbid: '135763' }
+    { team: 'Yorkshire CC', thesportsdbid: '135763' },
+    { team: 'England Football - Men', thesportsdbid: '133914' },
+    { team: 'England Rugby - Men', thesportsdbid: '137123' },
+    { team: 'England Football - Women', thesportsdbid: '136811' },
+    { team: 'England Rugby - Women', thesportsdbid: '150799' },
+    { team: 'England Cricket - Men', thesportsdbid: '137142' },
 ];
 
 let count = 1;
 
-let displayall = document.querySelector("#displayallid");
-let sport = document.querySelector("#sportid");
+//let displayall = document.querySelector("#displayallid");
+//let sport = document.querySelector("#sportid");
 
 let lufcgamename = document.querySelector("#lufcnextgameid");
 let lufcgameleague = document.querySelector("#lufcnextgameleagueid");
@@ -39,34 +44,6 @@ const displayData=(weather)=>{
     displayall.innerText=JSON.stringify(weather, null, 2)
 }
 
-function lufcnextgame() {
-    // Fection data from open weather API
-    fetch(`https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=133635`)
-    .then(response => response.json())
-    .then(
-        displayDatalufc)
-    .catch(err => alert('LUFC next game failed')); 
-}
-const displayDatalufc=(lufcgame)=>{
-    lufcgamename.innerText=`${lufcgame.events[0].strEvent}`
-    lufcgameleague.innerText=`${lufcgame.events[0].strLeague}`
-    lufcgametime.innerText=`${lufcgame.events[0].dateEventLocal}   ${lufcgame.events[0].strTimeLocal}`
-}
-
-function rhinosnextgame() {
-    // Fection data from open weather API
-    fetch(`https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=135216`)
-    .then(response => response.json())
-    .then(
-        displayDatarhinos)
-    .catch(err => alert('Rhinos next game failed')); 
-}
-const displayDatarhinos=(rhinosgame)=>{
-    rhinosgamename.innerText=`${rhinosgame.events[0].strEvent}`
-    rhinosgameleague.innerText=`${rhinosgame.events[0].strLeague}`
-    rhinosgametime.innerText=`${rhinosgame.events[0].dateEventLocal}   ${rhinosgame.events[0].strTimeLocal}`
-}
-
 
 function yorksnextgame() {
     // Fection data from open weather API
@@ -83,23 +60,38 @@ const displayDatayorks=(yorksgame)=>{
 }
 
 // gather Data from the sportsdb API and add it to the columns on the page. This is done by calling the addtocolumns function with the team id as an argument. The addtocolumns function then fetches the data from the API and calls the pushtobox function with the column id and the game data as arguments. The pushtobox function then creates a new box with the game data and adds it to the column.
-function addtocolumns(teamId) {
+function addtocolumns(teamId, teamName) {
     const columnId = `endof${count}`;
     count += 1;
+    if (count > 3) {
+        count = 1;
+    }
 
     fetch(`https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=${teamId}`)
     .then(response => response.json())
-    .then(game => pushtobox(columnId, game))
+    .then(response => {
+        if (response.events !== null) {
+            pushtobox(columnId, response);
+        } else {
+            // Handle the case where there are no upcoming games
+            const p1 = `No upcoming games for ${teamName}`;
+            const p2 = `No upcoming games`;
+            const p3 = `Sorry...`;
+            createnicebox(columnId, p1, p2, p3); 
+        }
+    })
     .catch(err => alert('add to 1 failed'));
 }
 // Gather the data from the API and push it to the box. This is done by calling the createnicebox function with the column id and the game data as arguments. The createnicebox function then creates a new box with the game data and adds it to the column.
 const pushtobox=(columnId, game)=>{
 
-    const p1 = `${game.events[0].strEvent}`
-    const p2 = `${game.events[0].strLeague}`
-    const p3 = `${game.events[0].dateEventLocal}   ${game.events[0].strTimeLocal}`
 
-    createnicebox(columnId, p1, p2, p3)
+        const p1 = `${game.events[0].strEvent}`
+        const p2 = `${game.events[0].strLeague}`
+        const p3 = `${game.events[0].dateEventLocal}   ${game.events[0].strTimeLocal}`
+
+        createnicebox(columnId, p1, p2, p3)
+
 
 }
 
@@ -132,17 +124,15 @@ function createnicebox(column,p1text,p2text,p3text) {
 
 }
 
-
+function iterate_sportsdb_teams() {
+    the_sportsdb_teams.forEach(team => {
+        addtocolumns(team.thesportsdbid, team.team);
+    });
+}
 
 function init() {
 //    pageloadweather()
-//    pageloadsport()
-//    lufcnextgame()
-//    rhinosnextgame()
-//    yorksnextgame()
-//    createnicebox("endof1","p1","p2","p3")
-    addtocolumns("135763")
-    addtocolumns("133635")
+    iterate_sportsdb_teams();
 }
 
 document.addEventListener('DOMContentLoaded', init);
