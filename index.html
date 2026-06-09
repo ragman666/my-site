@@ -4,12 +4,82 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>My First Website</title>
   </head>
   <body>
-    <h1>Welcome to My Website!</h1>
-    <p>This is my first real web page built from scratch.</p>
-    <button>Click Me</button>
+    <h1>This it a site, there are many like it but this one is mine </h1>
+    <button id="click">Click Me</button>
+    <button id="dont-click">Dont Click Me</button>
+
+    <br>
+    <br>
+    <div id="div1">The text above has been created dynamically.</div>
+    <br>
+    <br>
+    <br>
+
+    <div id="contentbox" class="clearfix">
+        <div class="columnthird">
+            <div class="nicebox">
+                <p id="lufcnextgameid">-----</p>
+                <p id="lufcnextgameleagueid">-----</p>
+                <p id="lufcnextgametimeid">-----</p>
+            </div>
+                <br>
+                <br>
+                <br>
+            <div class="nicebox" id="test">
+                <p id="nextgameid">-----</p>
+                <p id="nextgameleagueid">-----</p>
+                <p id="nextgametimeid">-----</p>
+            </div>
+        <br>
+        <br>
+        <br>
+        <div id="endof1"></div>
+        </div>
+        <div class="columnthird">
+            <div class="nicebox">
+                <p id="rhinosnextgameid">-----</p>
+                <p id="rhinosnextgameleagueid">-----</p>
+                <p id="rhinosnextgametimeid">-----</p>
+            </div>
+        <div id="endof2"></div>
+        </div>
+        <div class="columnthird">
+            <div class="nicebox">
+                <p id="yorksnexgameid">-----</p>
+                <p id="yorksnexgameleagueid">-----</p>
+                <p id="yorksnexgametimeid">-----</p>
+            </div>
+        <div id="endof3">.</div>
+        </div>
+
+    </div>
+
+    <br>    
+    <br>    
+    <br>
+    <br>    
+    <br>    
+    <br>    
+    <br>    
+    <br>
+
+    <details class="displayallclass">
+        <summary>Full Weather JSON data</summary>
+        <pre id="displayallid" class="prettyprint">-----</pre>
+    </details>
+
+    <details class="displayallclass">
+        <summary>Full Sport JSON data</summary>
+        <pre id="sportid" class="prettyprint">-----</pre>
+    </details>
+    
+    
     <script src="script.js"></script>
-  </body>
+    <script src="apilookups.js"></script>
+
+</body>
 </html>

@@ -3,6 +3,11 @@ body {
   font-family: "Poppins", sans-serif;
   text-align: center;
   margin-top: 100px;
+  background-image: url('https://pub-1f1ce68455c0432ea65ac3155a6b2409.r2.dev/timeline/ART002-E-14296.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  color: #e63946
 }
 
 h1 {
@@ -20,4 +25,61 @@ button {
 
 button:hover {
   background-color: #1d3557;
+  border-radius: 15px;
 }
+
+.displayallclass {
+    background-color: #423737;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    overflow-x: auto;
+    max-height: 400px;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.displayinfo {
+    color: #ca1313;
+    padding: 15px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    overflow-x: auto;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.col3 {
+    -webkit-column-count: 3;
+    -webkit-column-gap: 10px;
+    -moz-column-count: 3;
+    -moz-column-gap: 10px;
+    column-count:3;
+    column-gap:10px;
+}
+
+.contentbox {
+  margin:0px auto; 
+  width:90%;
+  font-size: 25px;
+}
+
+.columnthird {
+  float:left; 
+  margin:1%; 
+  width:30%;
+}
+
+.nicebox {
+  font-size: 25px;
+  background-color: rgba(253, 243, 255, 0.1);
+  padding: 6px;
+  border-radius: 90px;
+}
+
+.clearfix { zoom: 1; }
+.clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; overflow: hidden; }
+.clearfix:after { clear: both; }

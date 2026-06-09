@@ -1,5 +1,10 @@
-const button = document.querySelector("button");
+const buttonclick = document.querySelector("#click");
+const buttondontclick = document.querySelector("#dont-click");
 
-button.addEventListener("click", function () {
+buttonclick.addEventListener("click", function () {
   alert("You clicked the button! 🎉");
+});
+
+buttondontclick.addEventListener("click", function () {
+  alert("You didn't click the button! 😢");
 });
