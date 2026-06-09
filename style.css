@@ -1,51 +1,61 @@
 body {
-  background-color: #f9f9f9;
-  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #ff5f6d 0%, #ffc371 50%, #6a5cff 100%);
+  font-family: "Nunito", "Segoe UI", sans-serif;
   text-align: center;
-  margin-top: 100px;
-  background-image: url('https://pub-1f1ce68455c0432ea65ac3155a6b2409.r2.dev/timeline/ART002-E-14296.jpg');
-  background-repeat: no-repeat;
+  margin: 0;
+  padding: 40px 24px 60px;
+  min-height: 100vh;
   background-attachment: fixed;
   background-size: cover;
-  color: #e63946
+  color: #fffef8;
 }
 
 h1 {
-  color: #e63946;
+  color: #fff7c2;
+  font-family: "Fredoka", "Segoe UI", sans-serif;
+  text-shadow: 2px 2px 0 #ff4d7a;
+  margin-bottom: 20px;
 }
 
 button {
-  background-color: #457b9d;
+  background: linear-gradient(135deg, #ff4d7a, #ff8c42);
   color: white;
-  padding: 10px 20px;
+  padding: 12px 22px;
   border: none;
-  border-radius: 8px;
+  border-radius: 999px;
   cursor: pointer;
+  font-family: "Fredoka", "Segoe UI", sans-serif;
+  font-size: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 button:hover {
-  background-color: #1d3557;
-  border-radius: 15px;
+  background: linear-gradient(135deg, #ff2f64, #ffb347);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
 }
 
 .displayallclass {
-    background-color: #423737;
-    border: 1px solid #ddd;
+    background: rgba(18, 24, 67, 0.9);
+    border: 2px solid #ffd166;
     padding: 15px;
-    border-radius: 5px;
-    font-family: 'Courier New', monospace;
+    border-radius: 16px;
+    font-family: "Nunito", monospace;
     font-size: 12px;
     overflow-x: auto;
     max-height: 400px;
     overflow-y: auto;
     text-align: left;
+    color: #fff5c3;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
 .displayinfo {
-    color: #ca1313;
+    color: #fff8e1;
     padding: 15px;
-    border-radius: 5px;
-    font-family: 'Courier New', monospace;
+    border-radius: 16px;
+    font-family: "Nunito", monospace;
     font-size: 16px;
     overflow-x: auto;
     max-height: 400px;
@@ -62,8 +72,8 @@ button:hover {
 }
 
 .contentbox {
-  margin:0px auto; 
-  width:90%;
+  margin: 0 auto; 
+  width: 90%;
   font-size: 25px;
 }
 
@@ -71,13 +81,17 @@ button:hover {
   float:left; 
   margin:1%; 
   width:30%;
+  min-width: 220px;
 }
 
 .nicebox {
-  font-size: 25px;
-  background-color: rgba(253, 243, 255, 0.1);
-  padding: 6px;
-  border-radius: 90px;
+  font-size: 1.05rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,240,210,0.95));
+  color: #4a2b7d;
+  padding: 16px 18px;
+  border-radius: 20px;
+  border: 3px solid #ff7aa2;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
 }
 
 .clearfix { zoom: 1; }
