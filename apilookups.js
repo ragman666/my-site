@@ -16,19 +16,6 @@ let count = 1;
 let displayall = document.querySelector("#sportid");
 //let sport = document.querySelector("#sportid");
 
-let lufcgamename = document.querySelector("#lufcnextgameid");
-let lufcgameleague = document.querySelector("#lufcnextgameleagueid");
-let lufcgametime = document.querySelector("#lufcnextgametimeid");
-
-let rhinosgamename = document.querySelector("#rhinosnextgameid");
-let rhinosgameleague = document.querySelector("#rhinosnextgameleagueid");
-let rhinosgametime = document.querySelector("#rhinosnextgametimeid");
-
-let yorksgamename = document.querySelector("#yorksnexgameid");
-let yorksgameleague = document.querySelector("#yorksnexgameleagueid");
-let yorksgametime = document.querySelector("#yorksnexgametimeid");
-
-
 
 function pageloadweather() {
     displayall.innerText=JSON.stringify(the_sportsdb_teams, null, 2)
@@ -152,11 +139,12 @@ function sortTeamsByGametime(callback) {
 }
 
 function init() {
-    addteamsbynextdate(sortTeamsByGametime);
-    //setTimeout(sortTeamsByGametime, 200);
-    sortTeamsByGametime(iterate_sportsdb_teams)
-    //setTimeout(iterate_sportsdb_teams, 2000);
+    addteamsbynextdate();
+    setTimeout(sortTeamsByGametime, 200);
+    //sortTeamsByGametime(iterate_sportsdb_teams)
     setTimeout(pageloadweather, 500);
+    setTimeout(iterate_sportsdb_teams, 2000);
+
 }
 
 document.addEventListener('DOMContentLoaded', init);
