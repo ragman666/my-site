@@ -121,10 +121,13 @@ function addnextdate(teamId, teamName) {
     .catch(err => alert('add next date failed'));
 }
 
-function addteamsbynextdate() {
+function addteamsbynextdate(callback) {
         the_sportsdb_teams.forEach(team => {
         addnextdate(team.thesportsdbid, team.team);
     });
+    if (callback) {
+        callback();
+    }
 }
 
 function iterate_sportsdb_teams() {
@@ -138,18 +141,22 @@ function parseGameTime(value) {
   return Date.parse(value.replace(/\s+/g, ' '));
 }
 
-function sortTeamsByGametime() {
+function sortTeamsByGametime(callback) {
   the_sportsdb_teams.sort((a, b) => {
     return parseGameTime(a.gametime) - parseGameTime(b.gametime);
   });
   //iterate_sportsdb_teams();
+  if (callback) {
+    callback();
+  }
 }
 
 function init() {
-    addteamsbynextdate();
-    setTimeout(sortTeamsByGametime, 400);
-    setTimeout(iterate_sportsdb_teams, 600);
-    setTimeout(pageloadweather, 300);
+    addteamsbynextdate(sortTeamsByGametime);
+    //setTimeout(sortTeamsByGametime, 200);
+    sortTeamsByGametime(iterate_sportsdb_teams)
+    //setTimeout(iterate_sportsdb_teams, 2000);
+    setTimeout(pageloadweather, 500);
 }
 
 document.addEventListener('DOMContentLoaded', init);
