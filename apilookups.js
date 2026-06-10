@@ -35,20 +35,6 @@ function pageloadweather() {
 }
 
 
-function yorksnextgame() {
-    // Fection data from open weather API
-    fetch(`https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=135763`)
-    .then(response => response.json())
-    .then(
-        displayDatayorks)
-    .catch(err => alert('LUFC next game failed')); 
-}
-const displayDatayorks=(yorksgame)=>{
-    yorksgamename.innerText=`${yorksgame.events[0].strEvent}`
-    yorksgameleague.innerText=`${yorksgame.events[0].strLeague}`
-    yorksgametime.innerText=`${yorksgame.events[0].dateEventLocal}   ${yorksgame.events[0].strTimeLocal}`
-}
-
 // gather Data from the sportsdb API and add it to the columns on the page. This is done by calling the addtocolumns function with the team id as an argument. The addtocolumns function then fetches the data from the API and calls the pushtobox function with the column id and the game data as arguments. The pushtobox function then creates a new box with the game data and adds it to the column.
 function addtocolumns(teamId, teamName) {
     const columnId = `endof${count}`;
@@ -75,11 +61,14 @@ function addtocolumns(teamId, teamName) {
 // Gather the data from the API and push it to the box. This is done by calling the createnicebox function with the column id and the game data as arguments. The createnicebox function then creates a new box with the game data and adds it to the column.
 const pushtobox=(columnId, game)=>{
 
+
         const p1 = `${game.events[0].strEvent}`
         const p2 = `${game.events[0].strLeague}`
         const p3 = `${game.events[0].dateEventLocal}   ${game.events[0].strTimeLocal}`
 
         createnicebox(columnId, p1, p2, p3)
+
+
 }
 
 // Create a nice box to display the data in the page
@@ -112,7 +101,7 @@ function createnicebox(column,p1text,p2text,p3text) {
 }
 
 function addnextdate(teamId, teamName) {
-    return fetch(`https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=${teamId}`)
+    fetch(`https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=${teamId}`)
     .then(response => response.json())
     .then(response => {
         if (response.events !== null) {
@@ -124,18 +113,18 @@ function addnextdate(teamId, teamName) {
                 }
             }
 
-        }
-        return response;
+        };
+//        } else {
+//            console.log(`No upcoming games for ${teamName}`);
+        
     })
-    .catch(err => {
-        alert('add next date failed');
-        throw err;
-    });
+    .catch(err => alert('add next date failed'));
 }
 
 function addteamsbynextdate() {
-    const promises = the_sportsdb_teams.map(team => addnextdate(team.thesportsdbid, team.team));
-    return Promise.all(promises);
+        the_sportsdb_teams.forEach(team => {
+        addnextdate(team.thesportsdbid, team.team);
+    });
 }
 
 function iterate_sportsdb_teams() {
@@ -153,30 +142,14 @@ function sortTeamsByGametime() {
   the_sportsdb_teams.sort((a, b) => {
     return parseGameTime(a.gametime) - parseGameTime(b.gametime);
   });
+  //iterate_sportsdb_teams();
 }
 
-async function init() {
-//    pageloadweather()
-    try {
-        await addteamsbynextdate();
-    } catch (e) {
-        // already alerted in addnextdate; continue
-    }
-    try {
-        await sortTeamsByGametime();
-    } catch (e) {
-        // already alerted in addnextdate; continue
-    }
-    try {
-        await iterate_sportsdb_teams();
-    } catch (e) {
-        // already alerted in addnextdate; continue
-    }
-
-    //sortTeamsByGametime();
-    //alert(the_sportsdb_teams);
-    //iterate_sportsdb_teams();
-    pageloadweather();
+function init() {
+    addteamsbynextdate();
+    setTimeout(sortTeamsByGametime, 2000);
+    setTimeout(iterate_sportsdb_teams, 4000);
+    setTimeout(pageloadweather, 1000);
 }
 
 document.addEventListener('DOMContentLoaded', init);
