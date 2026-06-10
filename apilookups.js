@@ -148,7 +148,7 @@ function sortTeamsByGametime() {
 function init() {
     addteamsbynextdate();
     setTimeout(sortTeamsByGametime, 400);
-    setTimeout(iterate_sportsdb_teams, 500);
+    setTimeout(iterate_sportsdb_teams, 600);
     setTimeout(pageloadweather, 300);
 }
 
