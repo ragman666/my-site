@@ -1,5 +1,7 @@
 # move from iis to node.js
-# page with countdown timers
+# page with countdown timers (configurable)
 # reminders for specific times of tv shows etc (tvdb api lookups etc)
 # add local storage for above (cookies?)
 # log for dog walking (maybe a seperate site?)
+
+# Game recommendations ( discounts, liked games catagories etc)
