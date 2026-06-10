@@ -1,6 +1,6 @@
 // ACCESSING ALL THE HTML COMPONENTS REQUIRED TO PERFORM ACTIONS ON.
-const buttonclick = document.querySelector("#click");
-const buttondontclick = document.querySelector("#dont-click");
+//const buttonclick = document.querySelector("#click");
+//const buttondontclick = document.querySelector("#dont-click");
 
 const the_sportsdb_teams = [
     { team: 'Leeds United', thesportsdbid: '133635', gametime: ``, gamename: ``, gameleague: ``, date: `` },
@@ -144,9 +144,9 @@ function createnicebox(column,p1text,p2text,p3text,teamname,date) {
 
 }
 
-buttonclick.addEventListener("click", sortTeamsByGametime);
+//buttonclick.addEventListener("click", sortTeamsByGametime);
 
-buttondontclick.addEventListener("click", CreateContent);
+//buttondontclick.addEventListener("click", CreateContent);
 
 
 async function init() {
