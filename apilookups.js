@@ -134,6 +134,6 @@ async function init() {
 
 }
 
-init();
+//init();
 
-//document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', init);
