@@ -3,23 +3,39 @@ const buttonclick = document.querySelector("#click");
 const buttondontclick = document.querySelector("#dont-click");
 
 const the_sportsdb_teams = [
-    { team: 'Leeds United', thesportsdbid: '133635', gametime: ``, gamename: ``, gameleague: `` },
-    { team: 'Leeds Rhinos', thesportsdbid: '135216', gametime: ``, gamename: ``, gameleague: `` },
-    { team: 'Yorkshire CC', thesportsdbid: '135763', gametime: ``, gamename: ``, gameleague: `` },
-    { team: 'England Football - Men', thesportsdbid: '133914', gametime: ``, gamename: ``, gameleague: `` },
-    { team: 'England Rugby - Men', thesportsdbid: '137123', gametime: ``, gamename: ``, gameleague: `` },
-    { team: 'England Football - Women', thesportsdbid: '136811', gametime: ``, gamename: ``, gameleague: `` },
-    { team: 'England Rugby - Women', thesportsdbid: '150799', gametime: ``, gamename: ``, gameleague: `` },
-    { team: 'England Cricket - Men', thesportsdbid: '137142', gametime: ``, gamename: ``, gameleague: `` },
+    { team: 'Leeds United', thesportsdbid: '133635', gametime: ``, gamename: ``, gameleague: ``, date: `` },
+    { team: 'Leeds Rhinos', thesportsdbid: '135216', gametime: ``, gamename: ``, gameleague: ``, date: `` },
+    { team: 'Yorkshire CC', thesportsdbid: '135763', gametime: ``, gamename: ``, gameleague: ``, date: `` },
+    { team: 'England Football - Men', thesportsdbid: '133914', gametime: ``, gamename: ``, gameleague: ``, date: `` },
+    { team: 'England Rugby - Men', thesportsdbid: '137123', gametime: ``, gamename: ``, gameleague: ``, date: `` },
+    { team: 'England Football - Women', thesportsdbid: '136811', gametime: ``, gamename: ``, gameleague: ``, date: `` },
+    { team: 'England Rugby - Women', thesportsdbid: '150799', gametime: ``, gamename: ``, gameleague: ``, date: `` },
+    { team: 'England Cricket - Men', thesportsdbid: '137142', gametime: ``, gamename: ``, gameleague: ``, date: `` },
 ];
 
 let count = 1;
+let today = formatDate();
+//alert(`${today}`);
+
+function formatDate() {
+    var d = new Date(),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
 
 let displayall = document.querySelector("#sportid");
 //let sport = document.querySelector("#sportid");
 
 
-function pageloadweather() {
+function output_array() {
     displayall.innerText=JSON.stringify(the_sportsdb_teams, null, 2)
 }
 
@@ -40,11 +56,13 @@ function addgameinfotoarray(teamId, teamName) {
             const gamename = `${response.events[0].strEvent}`
             const gameleague = `${response.events[0].strLeague}`
             const nextgametime = `${response.events[0].dateEventLocal}   ${response.events[0].strTimeLocal}`;
+            const date = `${response.events[0].dateEventLocal}`;
             for (let i = 0; i < the_sportsdb_teams.length; i++) {
                 if (the_sportsdb_teams[i].team === teamName) {
                     the_sportsdb_teams[i].gametime = nextgametime;
                     the_sportsdb_teams[i].gamename = gamename;
                     the_sportsdb_teams[i].gameleague = gameleague;
+                    the_sportsdb_teams[i].date = date;
                 }
             }
         } else {
@@ -85,7 +103,7 @@ function CreateContent() {
     the_sportsdb_teams.forEach(team => {
         const columnId = `endof${count}`;
         //alert(JSON.stringify(team, null, 2));
-        createnicebox(columnId, team.gamename, team.gameleague, team.gametime, team.team);
+        createnicebox(columnId, team.gamename, team.gameleague, team.gametime, team.team, team.date);
         count += 1;
         if (count > 3) {
             count = 1;
@@ -95,10 +113,14 @@ function CreateContent() {
 
 
 // Create a nice box to display the data in the page
-function createnicebox(column,p1text,p2text,p3text,teamname) {
+function createnicebox(column,p1text,p2text,p3text,teamname,date) {
 
   const newDiv = document.createElement("div")
-  newDiv.classList.add("nicebox");
+  if (date === today) {
+    newDiv.classList.add("todaybox");
+  } else {
+    newDiv.classList.add("nicebox");
+  }
   newDiv.setAttribute("title", teamname);
 
   const p1 = document.createElement("p")
@@ -128,9 +150,11 @@ buttondontclick.addEventListener("click", CreateContent);
 
 
 async function init() {
+
     await iterrateThroughTeamsGatherInfo();
     await sortTeamsByGametime();
     CreateContent();
+    output_array();
 
 }
 
