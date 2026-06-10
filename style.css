@@ -86,7 +86,8 @@ button:hover {
 
 .nicebox {
   font-size: 1.05rem;
-  background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,240,210,0.95));
+  background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(187, 223, 30, 0.925));
+  opacity: 0.8;
   color: #4a2b7d;
   padding: 16px 18px;
   border-radius: 20px;

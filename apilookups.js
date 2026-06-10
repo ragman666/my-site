@@ -26,18 +26,15 @@ function pageloadweather() {
 
 
 
-function iterrateThroughTeamsGatherInfo(callback) {
-        the_sportsdb_teams.forEach(team => {
-        addgameinfotoarray(team.thesportsdbid, team.team);
+function iterrateThroughTeamsGatherInfo() {
+    const promises = the_sportsdb_teams.map(team => {
+        return addgameinfotoarray(team.thesportsdbid, team.team);
     });
-    if (callback) {
-        callback();
-    }
+    return Promise.all(promises);
 }
 
 function addgameinfotoarray(teamId, teamName) {
-
-    fetch(`https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=${teamId}`)
+    return fetch(`https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=${teamId}`)
     .then(response => response.json())
     .then(response => {
         if (response.events !== null) {
@@ -64,7 +61,10 @@ function addgameinfotoarray(teamId, teamName) {
             }
         }
     })
-    .catch(err => alert('add next date failed'));
+    .catch(err => {
+        alert('add next date failed');
+        throw err;
+    });
 }
 
 function sortTeamsByGametime(callback) {
@@ -86,7 +86,7 @@ function CreateContent() {
     the_sportsdb_teams.forEach(team => {
         const columnId = `endof${count}`;
         //alert(JSON.stringify(team, null, 2));
-        createnicebox(columnId, team.gamename, team.gameleague, team.gametime);
+        createnicebox(columnId, team.gamename, team.gameleague, team.gametime, team.team);
         count += 1;
         if (count > 3) {
             count = 1;
@@ -96,10 +96,11 @@ function CreateContent() {
 
 
 // Create a nice box to display the data in the page
-function createnicebox(column,p1text,p2text,p3text) {
+function createnicebox(column,p1text,p2text,p3text,teamname) {
 
   const newDiv = document.createElement("div")
   newDiv.classList.add("nicebox");
+  newDiv.setAttribute("title", teamname);
 
   const p1 = document.createElement("p")
   p1.innerText = p1text;
@@ -117,10 +118,10 @@ function createnicebox(column,p1text,p2text,p3text) {
 
   const newbreak = document.createElement("br")
   const newbreak2 = document.createElement("br")
-  const newbreak3 = document.createElement("br")
+  //const newbreak3 = document.createElement("br")
   currentDiv.parentNode.insertBefore(newbreak, currentDiv);
   currentDiv.parentNode.insertBefore(newbreak2, currentDiv);
-  currentDiv.parentNode.insertBefore(newbreak3, currentDiv);
+  //currentDiv.parentNode.insertBefore(newbreak3, currentDiv);
 
 }
 
@@ -136,7 +137,7 @@ async function init() {
     //setTimeout(sortTeamsByGametime, 500);
     //sortTeamsByGametime(iterate_sportsdb_teams)
     //setTimeout(pageloadweather, 500);
-    //setTimeout(CreateContent, 5000);
+    CreateContent();
     //alert(JSON.stringify(the_sportsdb_teams, null, 2));
     //setTimeout(iterate_sportsdb_teams, 1000);
     //setTimeout(CreateContent, 500);
