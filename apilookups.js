@@ -140,10 +140,12 @@ function sortTeamsByGametime(callback) {
 
 function init() {
     addteamsbynextdate();
-    setTimeout(sortTeamsByGametime, 200);
+    //alert(JSON.stringify(the_sportsdb_teams, null, 2));
+    setTimeout(sortTeamsByGametime, 500);
     //sortTeamsByGametime(iterate_sportsdb_teams)
-    setTimeout(pageloadweather, 500);
-    setTimeout(iterate_sportsdb_teams, 2000);
+    setTimeout(pageloadweather, 800);
+    //alert(JSON.stringify(the_sportsdb_teams, null, 2));
+    setTimeout(iterate_sportsdb_teams, 1000);
 
 }
 
