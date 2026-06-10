@@ -1,14 +1,17 @@
 // ACCESSING ALL THE HTML COMPONENTS REQUIRED TO PERFORM ACTIONS ON.
+const buttonclick = document.querySelector("#click");
+
+const buttondontclick = document.querySelector("#dont-click");
 
 const the_sportsdb_teams = [
-    { team: 'Leeds United', thesportsdbid: '133635', gametime: `` },
-    { team: 'Leeds Rhinos', thesportsdbid: '135216', gametime: `` },
-    { team: 'Yorkshire CC', thesportsdbid: '135763', gametime: `` },
-    { team: 'England Football - Men', thesportsdbid: '133914', gametime: `` },
-    { team: 'England Rugby - Men', thesportsdbid: '137123', gametime: `` },
-    { team: 'England Football - Women', thesportsdbid: '136811', gametime: `` },
-    { team: 'England Rugby - Women', thesportsdbid: '150799', gametime: `` },
-    { team: 'England Cricket - Men', thesportsdbid: '137142', gametime: `` },
+    { team: 'Leeds United', thesportsdbid: '133635', gametime: ``, gamename: ``, gameleague: `` },
+    { team: 'Leeds Rhinos', thesportsdbid: '135216', gametime: ``, gamename: ``, gameleague: `` },
+    { team: 'Yorkshire CC', thesportsdbid: '135763', gametime: ``, gamename: ``, gameleague: `` },
+    { team: 'England Football - Men', thesportsdbid: '133914', gametime: ``, gamename: ``, gameleague: `` },
+    { team: 'England Rugby - Men', thesportsdbid: '137123', gametime: ``, gamename: ``, gameleague: `` },
+    { team: 'England Football - Women', thesportsdbid: '136811', gametime: ``, gamename: ``, gameleague: `` },
+    { team: 'England Rugby - Women', thesportsdbid: '150799', gametime: ``, gamename: ``, gameleague: `` },
+    { team: 'England Cricket - Men', thesportsdbid: '137142', gametime: ``, gamename: ``, gameleague: `` },
 ];
 
 let count = 1;
@@ -22,41 +25,75 @@ function pageloadweather() {
 }
 
 
-// gather Data from the sportsdb API and add it to the columns on the page. This is done by calling the addtocolumns function with the team id as an argument. The addtocolumns function then fetches the data from the API and calls the pushtobox function with the column id and the game data as arguments. The pushtobox function then creates a new box with the game data and adds it to the column.
-function addtocolumns(teamId, teamName) {
-    const columnId = `endof${count}`;
-    count += 1;
-    if (count > 3) {
-        count = 1;
+
+function iterrateThroughTeamsGatherInfo(callback) {
+        the_sportsdb_teams.forEach(team => {
+        addgameinfotoarray(team.thesportsdbid, team.team);
+    });
+    if (callback) {
+        callback();
     }
+}
+
+function addgameinfotoarray(teamId, teamName) {
 
     fetch(`https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=${teamId}`)
     .then(response => response.json())
     .then(response => {
         if (response.events !== null) {
-            pushtobox(columnId, response);
+            const gamename = `${response.events[0].strEvent}`
+            const gameleague = `${response.events[0].strLeague}`
+            const nextgametime = `${response.events[0].dateEventLocal}   ${response.events[0].strTimeLocal}`;
+            for (let i = 0; i < the_sportsdb_teams.length; i++) {
+                if (the_sportsdb_teams[i].team === teamName) {
+                    the_sportsdb_teams[i].gametime = nextgametime;
+                    the_sportsdb_teams[i].gamename = gamename;
+                    the_sportsdb_teams[i].gameleague = gameleague;
+                }
+            }
         } else {
-            // Handle the case where there are no upcoming games
-            const p1 = `No upcoming games for ${teamName}`;
-            const p2 = `No upcoming games`;
-            const p3 = `Sorry...`;
-            createnicebox(columnId, p1, p2, p3); 
+            const gamename = `No upcoming games for ${teamName}`;
+            const gameleague = `No upcoming games`;
+            const nextgametime = `Sorry...`;
+            for (let i = 0; i < the_sportsdb_teams.length; i++) {
+                if (the_sportsdb_teams[i].team === teamName) {
+                    the_sportsdb_teams[i].gametime = nextgametime;
+                    the_sportsdb_teams[i].gamename = gamename;
+                    the_sportsdb_teams[i].gameleague = gameleague;
+                }
+            }
         }
     })
-    .catch(err => alert('add to page failed'));
+    .catch(err => alert('add next date failed'));
 }
-// Gather the data from the API and push it to the box. This is done by calling the createnicebox function with the column id and the game data as arguments. The createnicebox function then creates a new box with the game data and adds it to the column.
-const pushtobox=(columnId, game)=>{
 
-
-        const p1 = `${game.events[0].strEvent}`
-        const p2 = `${game.events[0].strLeague}`
-        const p3 = `${game.events[0].dateEventLocal}   ${game.events[0].strTimeLocal}`
-
-        createnicebox(columnId, p1, p2, p3)
-
-
+function sortTeamsByGametime(callback) {
+  the_sportsdb_teams.sort((a, b) => {
+    return parseGameTime(a.gametime) - parseGameTime(b.gametime);
+  });
+  if (callback) {
+    callback();
+  }
 }
+
+function parseGameTime(value) {
+  if (!value) return Infinity;
+  return Date.parse(value.replace(/\s+/g, ' '));
+}
+
+
+function CreateContent() {
+    the_sportsdb_teams.forEach(team => {
+        const columnId = `endof${count}`;
+        //alert(JSON.stringify(team, null, 2));
+        createnicebox(columnId, team.gamename, team.gameleague, team.gametime);
+        count += 1;
+        if (count > 3) {
+            count = 1;
+        }
+    });
+}
+
 
 // Create a nice box to display the data in the page
 function createnicebox(column,p1text,p2text,p3text) {
@@ -87,66 +124,25 @@ function createnicebox(column,p1text,p2text,p3text) {
 
 }
 
-function addnextdate(teamId, teamName) {
-    fetch(`https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id=${teamId}`)
-    .then(response => response.json())
-    .then(response => {
-        if (response.events !== null) {
-            const nextgametime = `${response.events[0].dateEventLocal}   ${response.events[0].strTimeLocal}`;
+buttonclick.addEventListener("click", sortTeamsByGametime);
 
-            for (let i = 0; i < the_sportsdb_teams.length; i++) {
-                if (the_sportsdb_teams[i].team === teamName) {
-                    the_sportsdb_teams[i].gametime = nextgametime; 
-                }
-            }
+buttondontclick.addEventListener("click", CreateContent);
 
-        };
-//        } else {
-//            console.log(`No upcoming games for ${teamName}`);
-        
-    })
-    .catch(err => alert('add next date failed'));
-}
 
-function addteamsbynextdate(callback) {
-        the_sportsdb_teams.forEach(team => {
-        addnextdate(team.thesportsdbid, team.team);
-    });
-    if (callback) {
-        callback();
-    }
-}
-
-function iterate_sportsdb_teams() {
-    the_sportsdb_teams.forEach(team => {
-        addtocolumns(team.thesportsdbid, team.team);
-    });
-}
-
-function parseGameTime(value) {
-  if (!value) return Infinity;
-  return Date.parse(value.replace(/\s+/g, ' '));
-}
-
-function sortTeamsByGametime(callback) {
-  the_sportsdb_teams.sort((a, b) => {
-    return parseGameTime(a.gametime) - parseGameTime(b.gametime);
-  });
-  //iterate_sportsdb_teams();
-  if (callback) {
-    callback();
-  }
-}
-
-function init() {
-    addteamsbynextdate();
+async function init() {
+    await iterrateThroughTeamsGatherInfo();
+    await sortTeamsByGametime();
     //alert(JSON.stringify(the_sportsdb_teams, null, 2));
-    setTimeout(sortTeamsByGametime, 500);
+    //setTimeout(sortTeamsByGametime, 500);
     //sortTeamsByGametime(iterate_sportsdb_teams)
-    setTimeout(pageloadweather, 800);
+    //setTimeout(pageloadweather, 500);
+    //setTimeout(CreateContent, 5000);
     //alert(JSON.stringify(the_sportsdb_teams, null, 2));
-    setTimeout(iterate_sportsdb_teams, 1000);
+    //setTimeout(iterate_sportsdb_teams, 1000);
+    //setTimeout(CreateContent, 500);
 
 }
 
-document.addEventListener('DOMContentLoaded', init);
+init();
+
+//document.addEventListener('DOMContentLoaded', init);
