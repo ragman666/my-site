@@ -1,6 +1,5 @@
 // ACCESSING ALL THE HTML COMPONENTS REQUIRED TO PERFORM ACTIONS ON.
 const buttonclick = document.querySelector("#click");
-
 const buttondontclick = document.querySelector("#dont-click");
 
 const the_sportsdb_teams = [
@@ -118,10 +117,8 @@ function createnicebox(column,p1text,p2text,p3text,teamname) {
 
   const newbreak = document.createElement("br")
   const newbreak2 = document.createElement("br")
-  //const newbreak3 = document.createElement("br")
   currentDiv.parentNode.insertBefore(newbreak, currentDiv);
   currentDiv.parentNode.insertBefore(newbreak2, currentDiv);
-  //currentDiv.parentNode.insertBefore(newbreak3, currentDiv);
 
 }
 
@@ -133,14 +130,7 @@ buttondontclick.addEventListener("click", CreateContent);
 async function init() {
     await iterrateThroughTeamsGatherInfo();
     await sortTeamsByGametime();
-    //alert(JSON.stringify(the_sportsdb_teams, null, 2));
-    //setTimeout(sortTeamsByGametime, 500);
-    //sortTeamsByGametime(iterate_sportsdb_teams)
-    //setTimeout(pageloadweather, 500);
     CreateContent();
-    //alert(JSON.stringify(the_sportsdb_teams, null, 2));
-    //setTimeout(iterate_sportsdb_teams, 1000);
-    //setTimeout(CreateContent, 500);
 
 }
 
