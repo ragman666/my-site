@@ -55,7 +55,7 @@ function addgameinfotoarray(teamId, teamName) {
         if (response.events !== null) {
             const gamename = `${response.events[0].strEvent}`
             const gameleague = `${response.events[0].strLeague}`
-            const nextgametime = `${response.events[0].dateEventLocal}   ${response.events[0].strTimeLocal}`;
+            const nextgametime = `${response.events[0].dateEventLocal}   ${response.events[0].strTime}`;
             const date = `${response.events[0].dateEventLocal}`;
             for (let i = 0; i < the_sportsdb_teams.length; i++) {
                 if (the_sportsdb_teams[i].team === teamName) {
@@ -115,32 +115,44 @@ function CreateContent() {
 // Create a nice box to display the data in the page
 function createnicebox(column,p1text,p2text,p3text,teamname,date) {
 
-  const newDiv = document.createElement("div")
-  if (date === today) {
-    newDiv.classList.add("todaybox");
-  } else {
-    newDiv.classList.add("nicebox");
-  }
-  newDiv.setAttribute("title", teamname);
+    const newDiv = document.createElement("div")
+    if (date === today) {
+        newDiv.classList.add("todaybox");
+//    newDiv.setAttribute("onclick", "location.href='https://www.vipleague.ws/live-now-games';");
+//    newDiv.setAttribute("target", "_blank");
+    } else {
+        newDiv.classList.add("nicebox");
+    }
+    newDiv.setAttribute("title", teamname);
 
-  const p1 = document.createElement("p")
-  p1.innerText = p1text;
-  const p2 = document.createElement("p")
-  p2.innerText = p2text;
-  const p3 = document.createElement("p")
-  p3.innerText = p3text;
+    let p1;
+    if (date === today) {
+        p1 = document.createElement("a")
+        const linktext = document.createTextNode(p1text);
+        p1.appendChild(linktext);
+        p1.title = p1text;
+        p1.href = "https://www.vipleague.ws/live-now-games";
+        p1.setAttribute("target", "_blank");
+    } else {
+        p1 = document.createElement("p")
+        p1.innerText = p1text;
+    }
+    const p2 = document.createElement("p")  
+    p2.innerText = p2text;
+    const p3 = document.createElement("p")
+    p3.innerText = p3text;
 
-  newDiv.appendChild(p1);
-  newDiv.appendChild(p2);
-  newDiv.appendChild(p3);
+    newDiv.appendChild(p1);
+    newDiv.appendChild(p2);
+    newDiv.appendChild(p3);
   
-  const currentDiv = document.getElementById(`${column}`);
-  currentDiv.parentNode.insertBefore(newDiv, currentDiv);
+    const currentDiv = document.getElementById(`${column}`);
+    currentDiv.parentNode.insertBefore(newDiv, currentDiv);
 
-  const newbreak = document.createElement("br")
-  const newbreak2 = document.createElement("br")
-  currentDiv.parentNode.insertBefore(newbreak, currentDiv);
-  currentDiv.parentNode.insertBefore(newbreak2, currentDiv);
+    const newbreak = document.createElement("br")
+    const newbreak2 = document.createElement("br")
+    currentDiv.parentNode.insertBefore(newbreak, currentDiv);
+    currentDiv.parentNode.insertBefore(newbreak2, currentDiv);
 
 }
 
