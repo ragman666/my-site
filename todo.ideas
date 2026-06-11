@@ -1,4 +1,6 @@
-# move from iis to node.js
+# move from iis to node.js done
+# auto start node
+
 # page with countdown timers (configurable)
 # reminders for specific times of tv shows etc (tvdb api lookups etc)
 # add local storage for above (cookies?)
@@ -9,3 +11,4 @@
 # gather info from radarr/ plex/ sonarr apis, are update required
 
 # list of unwatched youtube videos 
+# Insurance tracker/ gas/electric tracker etc
