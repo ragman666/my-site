@@ -23,8 +23,12 @@ form.addEventListener('submit', async (e) => {
  
   const data = {
     name: document.getElementById('name').value.trim(),
+    totalpeeps: document.getElementById('totalpeeps').value.trim(),
     behaviour: document.getElementById('behaviour').value.trim(),
+    pulling: document.getElementById('pulling').value.trim(),
+    reactive: document.getElementById('reactive').value.trim(),
     datetime: document.getElementById('datetime').value.trim(),
+    length: document.getElementById('length').value.trim(),
     notes: document.getElementById('notes').value.trim(),
   };
  
@@ -70,9 +74,9 @@ async function loadEntries() {
       <div class="entry-card" data-id="${entry.id}">
         <button class="delete-btn" title="Delete entry" onclick="deleteEntry(${entry.id})">✕</button>
         <span class="entry-name">${escapeHtml(entry.name)}</span>
-        ${entry.email ? `<span class="entry-email"> · ${escapeHtml(entry.email)}</span>` : ''}
-        ${entry.message ? `<p class="entry-message">${escapeHtml(entry.message)}</p>` : ''}
-        <div class="entry-date">${new Date(entry.created_at).toLocaleString()}</div>
+        ${entry.notes ? `<span class="entry-notes"> · ${escapeHtml(entry.notes)}</span>` : ''}
+        ${entry.length ? `<p class="entry-length">${escapeHtml(entry.length)}</p>` : ''}
+        <div class="entry-datetime">${new Date(entry.datetime).toLocaleString()}</div>
       </div>
     `).join('');
  

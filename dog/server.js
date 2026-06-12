@@ -12,17 +12,17 @@ app.use(express.urlencoded({ extended: true }));
 // POST - Save a new entry
 app.post('/api/entries', (req, res) => {
     try {
-        const { name, behaviour, datetime, notes } = req.body;
+        const { name, totalpeeps, behaviour, pulling, reactive, datetime, length, notes } = req.body;
         
         if (!name) {
             return res.status(400).json({ error: 'Name is required' });
         }
 
         const stmt = db.prepare(
-            'INSERT INTO entries (name, behaviour, datetime, notes) VALUES (?, ?, ?, ?)'
+            'INSERT INTO entries (name, totalpeeps, behaviour, pulling, reactive, datetime, length, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
         );        
 
-        const result = stmt.run(name, behaviour, datetime, notes);
+        const result = stmt.run(name, totalpeeps, behaviour, pulling, reactive, datetime, length, notes);
 
         res.status(201).json({
             success: true,
@@ -89,3 +89,4 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
+

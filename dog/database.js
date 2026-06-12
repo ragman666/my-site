@@ -12,11 +12,19 @@ db.exec(`
     CREATE TABLE IF NOT EXISTS entries (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
+        totalpeeps INTEGER,
         behaviour INTEGER,
-        datetime DATETIME, 
+        pulling INTEGER,
+        reactive INTEGER,
+        datetime DATETIME,
+        length DATETIME,
         notes TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`
 );
 
 module.exports = db;
+
+process.on('SIGINT', () => {
+    db.close();
+});
