@@ -1,0 +1,25 @@
+{
+  "name": "dog",
+  "version": "1.0.0",
+  "description": "website for recording doggo stuff",
+  "homepage": "https://github.com/ragman666/my-site#readme",
+  "bugs": {
+    "url": "https://github.com/ragman666/my-site/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ragman666/my-site.git"
+  },
+  "license": "ISC",
+  "author": "Adam",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.10.0",
+    "express": "^5.2.1"
+  }
+}

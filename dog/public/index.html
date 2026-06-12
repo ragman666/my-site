@@ -8,52 +8,53 @@
     <link rel="preconnect" type="text/css" href="https://fonts.googleapis.com">
     <link rel="preconnect" type="text/css" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <title>My First Website</title>
+    <title>DOGGO!</title>
   </head>
   <body>
-    <h1>This is a site, there are many like it but this one is mine </h1>
+    <h1>Dogs, OnlyDogs, Its raining dogs, Dog'o'matic 9000 </h1>
 <!--
     <button id="click">Sort Teams</button>
     <button id="dont-click">Load Page</button>
 //-->
     <br>
     <br>
+  <div class="container">
 
+    <h1>📝 Data Entry</h1>
+    <!-- Entry Form -->
+    <form id="entry-form">
+      <div class="form-group">
+        <label for="name">Name <span class="required">*</span></label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+      </div>
+      <div class="form-group">
+        <label for="behaviour">Behaviour - from 1 (very bad) to 10 (very good)</label>
+        <input type="number" id="behaviour" name="behaviour" placeholder="5" min="1" max="10">
+      </div>
+      <div class="form-group">
+        <label for="datetime">Date and time of Walk</label>
+        <input type="date" id="datetime" name="datetime">
+      </div>
+      <div class="form-group">
+        <label for="notes">Any notes about the walk</label>
+        <textarea id="notes" name="notes" rows="4" placeholder="Enter your notes"></textarea>
+      </div>
+      <button type="submit" id="submit-btn">Save Entry</button>
+    </form>
+    <!-- Status Message -->
 
-    <div id="contentbox" class="clearfix">
-        <div class="columnthird">
-        <div id="endof1"></div>
-        </div>
-        <div class="columnthird">
-        <div id="endof2"></div>
-        </div>
-        <div class="columnthird">
-        <div id="endof3">.</div>
-        </div>
-
+    <div id="status" class="status hidden"></div>
+    <!-- Entries List -->
+    <div class="entries-section">
+      <div class="entries-header">
+        <h2>Saved Entries</h2>
+        <span id="entry-count" class="entry-count">0 entries</span>
+      </div>
+      <div id="entries-list">
+        <p class="loading">Loading entries...</p>
+      </div>
     </div>
-
-    <br>    
-    <br>    
-    <br>
-    <br>    
-    <br>    
-    <br>    
-    <br>    
-    <br>
-<!--
-    <details class="displayallclass">
-        <summary>Full Weather JSON data</summary>
-        <pre id="displayallid" class="prettyprint">-----</pre>
-    </details>
-
-    <details class="displayallclass">
-        <summary>Full Sport JSON data</summary>
-        <pre id="sportid" class="prettyprint">-----</pre>
-    </details>
-//-->
-
-    <script type="text/javascript" src="/js/apilookups.js"></script>
-
+  </div>
+  <script type="text/javascript" src="/js/script.js"></script>
 </body>
 </html>
