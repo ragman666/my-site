@@ -1,24 +1,29 @@
 Done:
-# move from iis to node.js
-# auto start node on web server
+Doggo:
+    move from iis to node.js
+    auto start node on web server
+    Create backend DB for info (progress db, no, sqlite)
+    log for dog walking (maybe a seperate site?)
+    form to enter info, for walks
 
 
 Still to do:
-# Create backend DB for info (progress db)
-# log for dog walking (maybe a seperate site?)
+doggo:
     Password? limit to our ip only??
-    form to enter info, 2 forms maybe, 1 for walks, one for training, tracker for how well things are going
+    form to enter info, for training
     display info, calendar? graph? Editable in place
-# page with countdown timers (configurable)
-# reminders for specific times of tv shows etc (tvdb api lookups etc)
-# add local storage for above (cookies?)
+    
+page with countdown timers (configurable)
+    reminders for specific times of tv shows etc (tvdb api lookups etc)
+    add local storage for above (sqllite, cookies)
 
-Check security? do I need to do anythign else, lock down files/scripts etc
+General
+    Check security? do I need to do anythign else, lock down files/scripts etc
 
+Game recommendations ( discounts, liked games catagories etc)
 
-# Game recommendations ( discounts, liked games catagories etc)
+gather info from radarr/ plex/ sonarr apis, are update required?
 
-# gather info from radarr/ plex/ sonarr apis, are update required?
+list of unwatched youtube videos from my subs
 
-# list of unwatched youtube videos from my subs
-# Insurance tracker/ gas/electric/insurance tracker etc (time for review) different colours mean needs checking etc
+Insurance tracker/ gas/electric/insurance tracker etc (time for review) different colours mean needs checking etc
