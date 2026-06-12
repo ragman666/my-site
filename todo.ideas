@@ -1,14 +1,24 @@
-# move from iis to node.js done
-# auto start node
+Done:
+# move from iis to node.js
+# auto start node on web server
 
+
+Still to do:
+# Create backend DB for info (progress db)
+# log for dog walking (maybe a seperate site?)
+    Password? limit to our ip only??
+    form to enter info, 2 forms maybe, 1 for walks, one for training, tracker for how well things are going
+    display info, calendar? graph? Editable in place
 # page with countdown timers (configurable)
 # reminders for specific times of tv shows etc (tvdb api lookups etc)
 # add local storage for above (cookies?)
-# log for dog walking (maybe a seperate site?)
+
+Check security? do I need to do anythign else, lock down files/scripts etc
+
 
 # Game recommendations ( discounts, liked games catagories etc)
 
-# gather info from radarr/ plex/ sonarr apis, are update required
+# gather info from radarr/ plex/ sonarr apis, are update required?
 
-# list of unwatched youtube videos 
-# Insurance tracker/ gas/electric tracker etc
+# list of unwatched youtube videos from my subs
+# Insurance tracker/ gas/electric/insurance tracker etc (time for review) different colours mean needs checking etc
