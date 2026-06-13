@@ -1,6 +1,6 @@
 // ACCESSING ALL THE HTML COMPONENTS REQUIRED TO PERFORM ACTIONS ON.
-//const buttonclick = document.querySelector("#click");
-//const buttondontclick = document.querySelector("#dont-click");
+const buttonclick = document.querySelector("#click");
+const buttondontclick = document.querySelector("#dont-click");
 
 // Get ID's for teams using this link   https://www.thesportsdb.com/api/v1/json/123/searchteams.php?t=england%20cricket
 
@@ -8,6 +8,7 @@ const the_sportsdb_teams = [
     { team: 'Leeds United', thesportsdbid: '133635', gametime: ``, gamename: ``, gameleague: ``, date: `` },
     { team: 'Leeds Rhinos', thesportsdbid: '135216', gametime: ``, gamename: ``, gameleague: ``, date: `` },
     { team: 'Yorkshire CC', thesportsdbid: '135763', gametime: ``, gamename: ``, gameleague: ``, date: `` },
+    { team: 'England Cricket - Women', thesportsdbid: '145688', gametime: ``, gamename: ``, gameleague: ``, date: `` },
     { team: 'England Football - Men', thesportsdbid: '133914', gametime: ``, gamename: ``, gameleague: ``, date: `` },
     { team: 'England Rugby - Men', thesportsdbid: '137123', gametime: ``, gamename: ``, gameleague: ``, date: `` },
     { team: 'England Football - Women', thesportsdbid: '136811', gametime: ``, gamename: ``, gameleague: ``, date: `` },
@@ -38,7 +39,7 @@ let displayall = document.querySelector("#sportid");
 
 
 function output_array() {
-    displayall.innerText=JSON.stringify(links, null, 2)
+    displayall.innerText=JSON.stringify(the_sportsdb_teams, null, 2)
 }
 
 
@@ -55,10 +56,17 @@ function addgameinfotoarray(teamId, teamName) {
     .then(response => response.json())
     .then(response => {
         if (response.events !== null) {
-            const gamename = `${response.events[0].strEvent}`
-            const gameleague = `${response.events[0].strLeague}`
-            const nextgametime = `${response.events[0].dateEventLocal}   ${response.events[0].strTime}`;
-            const date = `${response.events[0].dateEventLocal}`;
+            const gamename = `${response.events[0].strEvent}`;
+            const gameleague = `${response.events[0].strLeague}`;
+            let nextgametime;
+            let date;
+            if (response.events[0].dateEventLocal !== null) {
+                nextgametime = `${response.events[0].dateEventLocal}   ${response.events[0].strTime}`;
+                date = `${response.events[0].dateEventLocal}`;
+            } else {
+                nextgametime = `${response.events[0].dateEvent}   ${response.events[0].strTime}`;
+                date = `${response.events[0].dateEvent}`;
+            }
             for (let i = 0; i < the_sportsdb_teams.length; i++) {
                 if (the_sportsdb_teams[i].team === teamName) {
                     the_sportsdb_teams[i].gametime = nextgametime;
@@ -86,13 +94,10 @@ function addgameinfotoarray(teamId, teamName) {
     });
 }
 
-function sortTeamsByGametime(callback) {
+function sortTeamsByGametime() {
   the_sportsdb_teams.sort((a, b) => {
     return parseGameTime(a.gametime) - parseGameTime(b.gametime);
   });
-  if (callback) {
-    callback();
-  }
 }
 
 function parseGameTime(value) {
@@ -158,60 +163,11 @@ function createnicebox(column,p1text,p2text,p3text,teamname,date) {
 
 }
 
-//buttonclick.addEventListener("click", sortTeamsByGametime);
+buttonclick.addEventListener("click", sortTeamsByGametime);
 
-//buttondontclick.addEventListener("click", CreateContent);
-
-
-function getlinks() {
-    $.get("https://www.vipleague.ws/football-sports-stream", function(data) {
-        var data = $(data);
-        var links = data.find('a');
-    //do stuff with links
-    displayall.innerText=JSON.stringify(links, null, 2)
-});
-}
+buttondontclick.addEventListener("click", CreateContent);
 
 
-function links() {
-    let request = new XMLHttpRequest();
-    request.open("GET", "https://www.vipleague.ws/football-sports-stream", true);
-    request.onload = () => {
-        const doc = new DOMParser().parseFromString(request.responseText, 'text/html');
-        document.querySelector('#content').innerHTML = doc.querySelector('h1').innerHTML;
-    }
-    request.send();
-}
-
-async function scrapeUrls(targetUrl) {
-  try {
-    const response = await fetch(targetUrl);
-    const html = await response.text(); 
-
-    // Parse the HTML string into a DOM document
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html'); 
-
-    // Extract all hrefs from anchor tags
-    const urls = [...doc.querySelectorAll('a[href]')]
-      .map(a => {
-        try {
-          return new URL(a.getAttribute('href'), targetUrl).href;
-        } catch {
-          return null; // Skip malformed URLs
-        }
-      })
-      .filter(Boolean); // Remove nulls
-
-    // Remove duplicates
-    return [...new Set(urls)];
-  } catch (error) {
-    console.error(`Error scraping ${targetUrl}:`, error.message);
-    return [];
-  }
-  displayall.innerText=("asdasd")
-  alert('is this running');
-}
 
 
 async function init() {
@@ -220,8 +176,7 @@ async function init() {
     await sortTeamsByGametime();
     CreateContent();
 
-    //scrapeUrls("https://www.vipleague.ws/football-sports-stream");
-    //output_array();
+    output_array();
 
 }
 
