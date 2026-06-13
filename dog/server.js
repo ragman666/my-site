@@ -5,6 +5,15 @@ const db = require('./database');
 const app = express();
 const PORT = 3001;
 
+// Verify database connection on startup
+try {
+    const result = db.prepare('SELECT 1').get();
+    console.log('✓ Database connection established');
+} catch (err) {
+    console.error('✗ Database connection failed:', err.message);
+    process.exit(1);
+}
+
 // Middleware to parse JSON and form data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -86,7 +95,17 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
  
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
+});
+
+// Graceful shutdown
+process.on('SIGINT', () => {
+    console.log('\nShutting down gracefully...');
+    db.close();
+    server.close(() => {
+        console.log('Server closed');
+        process.exit(0);
+    });
 });
 
