@@ -1,6 +1,9 @@
 // ACCESSING ALL THE HTML COMPONENTS REQUIRED TO PERFORM ACTIONS ON.
-const buttonclick = document.querySelector("#click");
-const buttondontclick = document.querySelector("#dont-click");
+
+//const buttonclick = document.querySelector("#click");
+//const buttondontclick = document.querySelector("#dont-click");
+//buttonclick.addEventListener("click", sortTeamsByGametime);
+//buttondontclick.addEventListener("click", CreateContent);
 
 // Get ID's for teams using this link   https://www.thesportsdb.com/api/v1/json/123/searchteams.php?t=england%20cricket
 
@@ -125,8 +128,6 @@ function createnicebox(column,p1text,p2text,p3text,teamname,date) {
     const newDiv = document.createElement("div")
     if (date === today) {
         newDiv.classList.add("todaybox");
-//    newDiv.setAttribute("onclick", "location.href='https://www.vipleague.ws/live-now-games';");
-//    newDiv.setAttribute("target", "_blank");
     } else {
         newDiv.classList.add("nicebox");
     }
@@ -163,12 +164,6 @@ function createnicebox(column,p1text,p2text,p3text,teamname,date) {
 
 }
 
-buttonclick.addEventListener("click", sortTeamsByGametime);
-
-buttondontclick.addEventListener("click", CreateContent);
-
-
-
 
 async function init() {
 
@@ -176,7 +171,7 @@ async function init() {
     await sortTeamsByGametime();
     CreateContent();
 
-    output_array();
+    //output_array();
 
 }
 
