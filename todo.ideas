@@ -8,6 +8,10 @@ Doggo:
 
 
 Still to do:
+sport:
+    add link scraping
+    re-fix date ordering
+
 doggo:
     Password? limit to our ip only??
     form to enter info, for training
