@@ -24,6 +24,7 @@ form.addEventListener('submit', async (e) => {
   const data = {
     name: document.getElementById('name').value.trim(),
     totalpeeps: document.getElementById('totalpeeps').value.trim(),
+    excitingness: document.getElementById('excitingness').value.trim(),
     behaviour: document.getElementById('behaviour').value.trim(),
     pulling: document.getElementById('pulling').value.trim(),
     reactive: document.getElementById('reactive').value.trim(),

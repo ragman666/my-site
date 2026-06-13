@@ -16,7 +16,7 @@
     <button id="dont-click">Load Page</button>
 //-->
   <div class="container">
-    <h1>📝 Data Entry</h1>
+
     <!-- Entry Form -->
     <form id="entry-form">
       <div class="form-group">
@@ -32,6 +32,22 @@
       </div>
       <datalist id="values">
         <option value="0" label="0"></option>
+        <option value="1" label="1"></option>
+        <option value="2" label="2"></option>
+        <option value="3" label="3"></option>
+        <option value="4" label="4"></option>
+        <option value="5" label="5"></option>
+        <option value="6" label="6"></option>
+        <option value="7" label="7"></option>
+        <option value="8" label="8"></option>
+        <option value="9" label="9"></option>
+        <option value="10" label="10"></option>
+      </datalist>
+      <div class="form-group">
+        <label for="excitingness">How exciting was the environment</label>
+        <input type="range" id="excitingness" name="excitingness" list="values" min="1" max="10", step="1">
+      </div>
+      <datalist id="values">
         <option value="1" label="1"></option>
         <option value="2" label="2"></option>
         <option value="3" label="3"></option>

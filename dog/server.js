@@ -21,17 +21,17 @@ app.use(express.urlencoded({ extended: true }));
 // POST - Save a new entry
 app.post('/api/entries', (req, res) => {
     try {
-        const { name, totalpeeps, behaviour, pulling, reactive, datetime, length, notes } = req.body;
+        const { name, totalpeeps, excitingness, behaviour, pulling, reactive, datetime, length, notes } = req.body;
         
         if (!name) {
             return res.status(400).json({ error: 'Name is required' });
         }
 
         const stmt = db.prepare(
-            'INSERT INTO entries (name, totalpeeps, behaviour, pulling, reactive, datetime, length, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+            'INSERT INTO entries (name, totalpeeps, excitingness, behaviour, pulling, reactive, datetime, length, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
         );        
 
-        const result = stmt.run(name, totalpeeps, behaviour, pulling, reactive, datetime, length, notes);
+        const result = stmt.run(name, totalpeeps, excitingness, behaviour, pulling, reactive, datetime, length, notes);
 
         res.status(201).json({
             success: true,
@@ -47,7 +47,7 @@ app.post('/api/entries', (req, res) => {
 // GET - Retrieve all entries
 app.get('/api/entries', (req, res) => {
     try {
-        const entries = db.prepare('SELECT * FROM entries ORDER BY created_at DESC').all();
+        const entries = db.prepare('SELECT * FROM entries ORDER BY created_at DESC LIMIT 5').all();
         res.json(entries);
     } catch (err) {
         console.error('DB read error:', err.message);

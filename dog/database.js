@@ -9,8 +9,9 @@ try {
     console.log('✓ Database file opened');
 
     // Enable WAL mode for better performance
-    db.pragma('journal_mode = WAL');
-    console.log('✓ WAL mode enabled');
+    //db.pragma();
+    db.pragma('journal_mode = persist');
+    //console.log('✓ WAL mode enabled');
 
     // Create your table(s) on startup
     db.exec(`
@@ -18,6 +19,7 @@ try {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             totalpeeps INTEGER,
+            excitingness INTEGER,
             behaviour INTEGER,
             pulling INTEGER,
             reactive INTEGER,
