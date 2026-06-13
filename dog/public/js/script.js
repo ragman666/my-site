@@ -22,7 +22,7 @@ form.addEventListener('submit', async (e) => {
   submitBtn.textContent = 'Saving...';
  
   const data = {
-    name: document.getElementById('name').value.trim(),
+    name: document.querySelector('input[name="name"]:checked').value.trim(),
     totalpeeps: document.getElementById('totalpeeps').value.trim(),
     excitingness: document.getElementById('excitingness').value.trim(),
     behaviour: document.getElementById('behaviour').value.trim(),
